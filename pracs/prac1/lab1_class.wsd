@@ -1,0 +1,58 @@
+@startuml lab1_class
+
+
+
+abstract class Book {
+    {field}# Автор : String
+    {field}# Название : String
+    
+    {method}+ setAuthor(string) 
+    {method}+ getAuthor() : string
+    {method}+ setName(string)
+    {method}+ getName() : string
+}
+
+class Book_Ex{
+    {field}- Номер : int
+    {field}- В наличии : bool
+
+    {method}+ setStatus(bool)
+    {method}+ getStatus() : bool
+    {method}+ getNumber() : int
+}
+
+
+class Receit {
+    {field}- Клиент : Client
+    {field}- Книга : Book_Ex
+    {field}- Статус : bool
+
+    {method}+ setStatus(bool)
+    {method}+ getStatus() : bool
+    {method}+ getClient() : Client
+    {method}+ getBook() : Book_Ex
+}
+
+class Client {
+    {field}- ФИО : String
+    {field}- Паспорт : int
+
+
+    {method}+ setFIO(string) 
+    {method}+ setPassport(int)
+    {method}+ getFIO() : string
+    {method}+ getPassport() : int
+}
+
+class Menu{
+    {method} +showBooks(string) : Book
+}
+
+Book_Ex --|> Book
+Client "1..1" --o "0..*" Receit
+Book_Ex "1..1" --o "0..*" Receit
+Menu ..> Book_Ex
+
+
+
+@enduml

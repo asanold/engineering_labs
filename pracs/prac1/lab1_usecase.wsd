@@ -1,0 +1,34 @@
+@startuml lab1_usecase
+left to right direction
+actor "Клиент" as client
+actor "Библиотекарь" as bible
+
+rectangle "ИС Учёта Библиотеки" {
+    
+    usecase "Поиск книг по каталогу" as search
+    usecase "Учёт выдачи книги" as give
+    usecase "Учёт возврата книги" as receive
+    usecase "Добавление книг в фонд" as add
+    usecase "Списывание книг фонда" as delete
+
+    usecase "Информирование "Отсуствие книги в каталоге"" as exc_no_book
+    usecase "Информирование "Отсуствие экземпляра книги в каталоге"" as exc_no_book_ex
+    usecase "Информирование "Книга уже выдана"" as exc_book_given
+    usecase "Информирование "Книга уже возвращена"" as exc_book_received
+
+
+    search <-right. exc_no_book : <<extend>>
+    give <-right. exc_no_book_ex : <<extend>>
+    give <-right. exc_book_given : <<extend>>
+    receive <-right. exc_no_book_ex : <<extend>>
+    receive <-right. exc_book_received : <<extend>>
+    delete <-right. exc_no_book_ex : <<extend>>
+}
+client --> search
+bible --> search
+bible --> give
+bible --> receive
+bible --> add
+bible --> delete
+
+@enduml
